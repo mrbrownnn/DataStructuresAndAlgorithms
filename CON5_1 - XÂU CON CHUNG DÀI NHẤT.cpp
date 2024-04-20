@@ -28,6 +28,4 @@ int main()
 }
 
 
-
-
 // Pham Van Thanh B21DCVT404 //

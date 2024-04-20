@@ -35,3 +35,8 @@ int main()
         cout << v[n - 1] << endl;
     }
 }
+
+
+
+
+// Pham Van Thanh B21DCVT404 //
