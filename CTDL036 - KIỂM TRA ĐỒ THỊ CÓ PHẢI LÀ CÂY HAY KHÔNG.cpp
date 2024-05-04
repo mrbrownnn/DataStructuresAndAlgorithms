@@ -1,50 +1,53 @@
-#include <iostream>
-#include <cstring>
-#include <vector>
-#include<stack>
-#include<queue>
+#include <bits/stdc++.h>
+#define endl "\n"
 using namespace std;
-vector<int> A[1005];
-bool chuaxet[1005];
-int truoc[1005];
-int bfs(int d) {
-	queue<int>hd;
-	hd.push(d);
-	chuaxet[d] = false;
-	while (!hd.empty()) {
-		int s = hd.front(); hd.pop();
-		for (auto t: A[s]) {
-			if (chuaxet[t] == true) {
-				hd.push(t);
-				chuaxet[t] = false;
-				truoc[t] = s;
-			}
-			else if (truoc[s] != t)return 1;
-		}
-	}
-	return 0;
+int check[1001], ok;
+vector<vector<int>> a(1001);
+void dfs(int u)
+{
+    for (auto v : a[u])
+    {
+        if (check[v])
+        {
+            ok = 1;
+            return;
+        }
+        check[v]++;
+        dfs(v);
+    }
 }
-int ktra(int v) {
-	int kt = 0;
-	for (int i = 1; i <= v; i++) {
-		memset(chuaxet, true, sizeof(chuaxet));
-		if (bfs(i))return 1;
-	}
-	return 0;
-}
-int main() {
-	int t; cin >> t;
-	while (t--) {
-		int v; cin >> v;
-		for (int i = 0; i < 1005; i++)A[i].clear();
-		memset(chuaxet, true, sizeof(chuaxet));
-		memset(truoc, 0, sizeof(truoc));
-		for (int i = 1; i <=v-1; i++) {
-			int a, b; cin >> a >> b;
-			A[a].push_back(b);
-			A[b].push_back(a);
-		}
-		if (ktra(v) == 1)cout << "NO" << endl;
-		else cout << "YES" << endl;
-	}
+int main()
+{
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    int t;
+    cin >> t;
+    while (t--)
+    {
+        ok = 0;
+        int n, u, v;
+        cin >> n;
+        for (int i = 1; i <= n; i++)
+        {
+            a[i].clear();
+            check[i] = 0;
+        }
+        for (int i = 1; i < n; i++)
+        {
+            cin >> u >> v;
+            a[u].push_back(v);
+        }
+        for (int i = 1; i <= n; i++)
+        {
+            if (!check[i] && !ok)
+            {
+                check[i]++;
+                dfs(i);
+            }
+        }
+        if (!ok)
+            cout << "YES" << endl;
+        else
+            cout << "NO" << endl;
+    }
 }
