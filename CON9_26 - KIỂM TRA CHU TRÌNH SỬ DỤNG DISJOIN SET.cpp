@@ -53,6 +53,3 @@ int main()
             cout << "NO" << endl;
     }
 }
-
-
-//B21DCVT404//
